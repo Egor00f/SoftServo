@@ -1,18 +1,14 @@
-[![latest](https://img.shields.io/github/v/release/GyverLibs/SoftServo.svg?color=brightgreen)](https://github.com/GyverLibs/SoftServo/releases/latest/download/SoftServo.zip)
+[![latest](https://img.shields.io/github/v/release/GyverLibs/SoftServo.svg?color=brightgreen)](https://github.com/Egor00f/SoftServo/releases/latest/download/SoftServo.zip)
 [![PIO](https://badges.registry.platformio.org/packages/gyverlibs/library/SoftServo.svg)](https://registry.platformio.org/libraries/gyverlibs/SoftServo)
-[![Foo](https://img.shields.io/badge/Website-AlexGyver.ru-blue.svg?style=flat-square)](https://alexgyver.ru/)
-[![Foo](https://img.shields.io/badge/%E2%82%BD%24%E2%82%AC%20%D0%9F%D0%BE%D0%B4%D0%B4%D0%B5%D1%80%D0%B6%D0%B0%D1%82%D1%8C-%D0%B0%D0%B2%D1%82%D0%BE%D1%80%D0%B0-orange.svg?style=flat-square)](https://alexgyver.ru/support_alex/)
-[![Foo](https://img.shields.io/badge/README-ENGLISH-blueviolet.svg?style=flat-square)](https://github-com.translate.goog/GyverLibs/SoftServo?_x_tr_sl=ru&_x_tr_tl=en)  
-
-[![Foo](https://img.shields.io/badge/ПОДПИСАТЬСЯ-НА%20ОБНОВЛЕНИЯ-brightgreen.svg?style=social&logo=telegram&color=blue)](https://t.me/GyverLibs)
+[![Foo](https://img.shields.io/badge/README-ENGLISH-blueviolet.svg?style=flat-square)](https://github-com.translate.goog/Egor00f/SoftServo?_x_tr_sl=ru&_x_tr_tl=en)  
 
 # SoftServo
 Библиотека для программного управления Servo (на базе millis/micros)
 - Не использует дополнительный аппаратный таймер
-- Работает на millis() и micros()
-- Синтаксис как у Servo.h
+- Работает на `millis()` и `micros()`
+- Синтаксис как у `Servo.h`
 - Режим работы асинхронный и с delay
-- Повышенная произвводительность для AVR
+- Повышенная производительность для AVR
 
 ### Совместимость
 Совместима со всеми Arduino платформами (используются Arduino-функции)
@@ -46,16 +42,16 @@
 <a id="init"></a>
 ## Инициализация
 ```cpp
-SoftServo myservo;
+SoftServo myServo;
 ```
 
 <a id="usage"></a>
 ## Использование
 ```cpp
-void attach(int pin, int min = 500, int max = 2400);    // подключить с указанием мин и макс импульса
+void attach(int pin, int min = 500, int max = 2400, uint16_t maxAngle = 180);    // подключить с указанием мин и макс импульса
 void detach();          // отключить
 void asyncMode();       // переключить в асинхронный режим
-void delayMode();       // переключить в режим задержки (по умолч)
+void delayMode();       // переключить в режим задержки (по умолчанию)
 bool tick();            // тикер, вызывать как можно чаще, в асинхронном режиме вернёт true во время отработки импульса
 void write(int value);  // поставить на угол
 void writeMicroseconds(int us); // поставить на импульс
@@ -67,28 +63,28 @@ bool attached();        // true если серво подключена
 <a id="example"></a>
 ## Пример
 Остальные примеры смотри в **examples**!
-```cpp
+```c
 #include "SoftServo.h"
 
-SoftServo myservo;
+SoftServo myServo;
 
 void setup() {
-  myservo.attach(5);
+  myServo.attach(5);
   
   // asyncMode - вызов tick не блокирует код на величину импульса (0.7-2.5 мс)
   // но работа будет нестабильной при наличии задержек в коде
   // в этом режиме tick вернёт true на период импульса, можно запрещать
   // тяжёлые функции на этот период 
-  myservo.asyncMode();
+  myServo.asyncMode();
   
   // delayMode - вызов tick блокирует код на величину импульса (0.7-2.5 мс) - по умолчанию  
-  myservo.delayMode();  
+  myServo.delayMode();  
 }
 
 int val = 0;
 void loop() {
   // тикер - вызывать как можно чаще для каждого экземпляра
-  myservo.tick();
+  myServo.tick();
   
   // двигаем туда сюда
   static uint32_t tmr;
@@ -97,7 +93,7 @@ void loop() {
     static int dir = 5;
     val += dir;    
     if (val >= 180 || val <= 0) dir = -dir;   // разворачиваем
-    myservo.write(val);
+    myServo.write(val);
   }
 }
 ```
