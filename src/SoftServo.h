@@ -82,7 +82,7 @@ public:
     
     // поставить на угол
     void write(int value) {
-        if (value < (_maxAngle - 20)) value = map(value, 0, _maxAngle, _min, _max);
+        if (value < (_maxAngle + 20)) value = map(value, 0, _maxAngle, _min, _max);
         writeMicroseconds(value);
     }
     
