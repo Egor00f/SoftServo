@@ -27,7 +27,7 @@
 class SoftServo {
 public:
     // подключить с указанием мин и макс импульса
-    void attach(int pin, int min = 500, int max = 2400) {
+    void attach(int pin, int min = 500, int max = 2400, uint maxAngle = 180) {
         _pin = pin;
         pinMode(_pin, OUTPUT);
         _attached = true;
@@ -36,6 +36,7 @@ public:
         _tmr50 = millis();
         _tmrUs = micros();
         _flag = 0;
+        _maxAngle = maxAngle;
     }
     
     // отключить
@@ -81,7 +82,7 @@ public:
     
     // поставить на угол
     void write(int value) {
-        if (value < 200) value = map(value, 0, 180, _min, _max);
+        if (value < (_maxAngle - 20)) value = map(value, 0, _maxAngle, _min, _max);
         writeMicroseconds(value);
     }
     
@@ -92,7 +93,7 @@ public:
     
     // вернуть текущий угол
     int read() {
-        return map(_us, _min, _max, 0, 180);
+        return map(_us, _min, _max, 0, _maxAngle);
     }
     
     // вернуть текущий импульс
@@ -121,5 +122,6 @@ private:
     int _us = 700, _min, _max;
     bool _attached = 0, _mode = 0, _flag = 0;
     uint32_t _tmr50, _tmrUs;
+    uint _maxAngle;
 };
 #endif
