@@ -120,8 +120,10 @@ private:
     }
     uint8_t _pin = 255;
     int _us = 700, _min, _max;
-    bool _attached = 0, _mode = 0, _flag = 0;
     uint32_t _tmr50, _tmrUs;
     uint16_t _maxAngle;
+    bool _attached : 1;
+    bool _mode : 1;
+    bool _flag : 1;
 };
 #endif
