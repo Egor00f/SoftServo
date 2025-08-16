@@ -27,7 +27,7 @@
 class SoftServo {
 public:
     // подключить с указанием мин и макс импульса
-    void attach(int pin, int min = 500, int max = 2400, uint maxAngle = 180) {
+    void attach(int pin, int min = 500, int max = 2400, uint16_t maxAngle = 180) {
         _pin = pin;
         pinMode(_pin, OUTPUT);
         _attached = true;
@@ -122,6 +122,6 @@ private:
     int _us = 700, _min, _max;
     bool _attached = 0, _mode = 0, _flag = 0;
     uint32_t _tmr50, _tmrUs;
-    uint _maxAngle;
+    uint16_t _maxAngle;
 };
 #endif
